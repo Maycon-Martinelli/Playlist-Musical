@@ -4,11 +4,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/style.css">
     <title>Playlist</title>
 </head>
 <body>
-    <h1>Cadastre uma nova musica</h1>
+    <nav>
+        <ul>
+            <li>
+                <a href="/"><img src="/img/logo.png" alt="Logo da Blue"></a>
+            </li>
+            <li>
+                <a href="/"><i class="bi bi-box-arrow-right"></i></a>
+            </li>
+        </ul>
+    </nav>
+    <section id="add">
+    <h2>Cadastre uma nova musica</h2>
 
     <form action="/create" method="post">
 
@@ -26,5 +38,45 @@
 
         <button type="submit">Cadastrar</button>
     </form>
+</section>
+
+<section id="player">
+    <h2>Gerenciar músicas </h2>
+
+
+    <div>
+        <table>
+
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Nome</th>
+                    <th>Artista</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <% playlist.forEach((music)=> { %>
+                    <tr class="musics">
+                        <td><img src="<%= music.linkImage %>" alt="Imagem da musica"></td>
+                        <td>
+                            <%= music.name %>
+                        </td>
+                        <td>
+                            <%= music.author %>
+                        </td>
+                        <td id="actions">
+                           <a id="edit" href="">Editar</a>
+                           <a id="delete" href="">Apagar</a>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+
+        </table>
+    </div>
+</section>
 </body>
 </html>

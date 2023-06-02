@@ -7,7 +7,8 @@
 }
 
 body {
-  background-color: black;
+    background: rgb(63,94,251);
+    background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
   color: #fff;
 }
 
@@ -129,7 +130,7 @@ form button {
   justify-content: center;
   margin: 0 auto;
   background-color: transparent;
-  color: #00a53f;
+  color: #009dff;
   width: 70%;
   cursor: pointer;
   border-radius: 0.3rem;
@@ -137,7 +138,7 @@ form button {
 }
 
 form button:hover {
-  background-color: #00a53f;
+  background-color: #009dff;
   color: #fff;
 }
 
