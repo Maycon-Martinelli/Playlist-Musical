@@ -7,6 +7,7 @@ const Music = require("./model/Music");
 const app = express();
 const port = process.env.PORT || 3000;
 let music = null;
+let musicDel = null;
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
@@ -16,13 +17,12 @@ connetToDb();
 
 app.get("/", async (req, res) => {
   const playlist = await Music.find();
-  console.log(playlist);
   res.render("index", { playlist });
 });
 
 app.get("/admin", async (req, res) => {
   const playlist = await Music.find();
-  res.render("admin", { playlist, music: null });
+  res.render("admin", { playlist, music: null, musicDel: null });
 });
 
 app.post("/create", async (req, res) => {
@@ -31,11 +31,15 @@ app.post("/create", async (req, res) => {
   res.redirect("/");
 });
 
-app.get("/by/:id", async (req, res) => {
-  const { id } = req.params;
+app.get("/by/:id/:action", async (req, res) => {
+  const { id, action } = req.params;
   music = await Music.findById({ _id: id });
   const playlist = await Music.find();
-  res.render("admin", { playlist, music });
+  if (action == "edit") {
+    res.render("admin", { playlist, music, musicDel: null });
+  } else {
+    res.render("admin", { playlist, music: null, musicDel: music });
+  }
 });
 
 app.post("/update/:id", async (req, res) => {
@@ -44,6 +48,11 @@ app.post("/update/:id", async (req, res) => {
   res.redirect("/admin");
 });
 
+app.get("/delete/:id", async (req, res) => {
+  await Music.deleteOne({ _id: req.params.id });
+  res.redirect("/admin");
+});
+
 app.listen(port, () =>
-  console.log(`servidor rodando em http://localhost:${port}`)
+  console.log(`Servidor rodando em http://localhost:${port}`)
 );
